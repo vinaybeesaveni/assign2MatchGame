@@ -3,6 +3,7 @@
   height: 70px;
   border-radius: 5px;
 }
+
 .thumbnail-btn {
   background-color: transparent;
   border-width: 0;
@@ -10,4 +11,24 @@
   height: 70px;
   margin: 8px;
   cursor: pointer;
+}
+@media screen and (min-width: 768px) {
+  .thumbnail-img {
+    width: 100px;
+    height: 100px;
+  }
+  .thumbnail-btn {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .thumbnail-img {
+    width: 120px;
+    height: 120px;
+  }
+  .thumbnail-btn {
+    width: 120px;
+    height: 120px;
+  }
 }

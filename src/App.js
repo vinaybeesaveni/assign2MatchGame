@@ -354,7 +354,7 @@ class App extends Component {
             alt="trophy"
             className="trophy-img"
           />
-          <h1 className="your-score">YOUR SCORE</h1>
+          <p className="your-score">YOUR SCORE</p>
           <h1 className="score-obtained">{score}</h1>
           <button
             type="button"
@@ -384,11 +384,13 @@ class App extends Component {
             alt="website logo"
             className="website-logo"
           />
-          <div className="score-timer-container">
-            <p className="score">
-              Score: <span>{score}</span>
-            </p>
-            <div className="timer-container">
+          <ul className="score-timer-container">
+            <li className="score">
+              <p>
+                Score: <span>{score}</span>
+              </p>
+            </li>
+            <li className="timer-container">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
                 alt="timer"
@@ -397,8 +399,8 @@ class App extends Component {
               <p className="timer-in-seconds">
                 {60 - timeElapsedInSeconds} sec
               </p>
-            </div>
-          </div>
+            </li>
+          </ul>
         </nav>
         {isGameOver ? this.gameOver() : this.renderHomePage()}
       </div>

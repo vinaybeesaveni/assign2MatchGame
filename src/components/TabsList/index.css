@@ -14,3 +14,8 @@
   color: #fec653;
   border-bottom: 2px solid #fec653;
 }
+@media screen and (min-width: 768px) {
+  .tab-button {
+    font-size: 20px;
+  }
+}

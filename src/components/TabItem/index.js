@@ -2,7 +2,7 @@ import './index.css'
 
 const TabItem = props => {
   const {eachImg, onThumbnailPress} = props
-  const {imageUrl} = eachImg
+  const {imageUrl, thumbnailUrl} = eachImg
   const onClickingThumbnail = () => {
     onThumbnailPress(imageUrl)
   }
@@ -13,7 +13,7 @@ const TabItem = props => {
         className="thumbnail-btn"
         onClick={onClickingThumbnail}
       >
-        <img src={imageUrl} alt="thumbnail" className="thumbnail-img" />
+        <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-img" />
       </button>
     </li>
   )
