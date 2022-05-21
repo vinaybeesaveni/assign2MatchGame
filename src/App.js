@@ -256,6 +256,27 @@ class App extends Component {
     activeImg: imagesList[0].imageUrl,
     isGameOver: false,
     score: 0,
+    timeElapsedInSeconds: 0,
+  }
+
+  componentDidMount() {
+    this.intervalId = setInterval(this.increaseTimeElapsedInSeconds, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId)
+  }
+
+  increaseTimeElapsedInSeconds = () => {
+    const {timeElapsedInSeconds} = this.state
+    if (timeElapsedInSeconds === 60) {
+      clearInterval(this.intervalId)
+      this.setState({isGameOver: true})
+    } else {
+      this.setState(prevState => ({
+        timeElapsedInSeconds: prevState.timeElapsedInSeconds + 1,
+      }))
+    }
   }
 
   changeActiveTab = id => {
@@ -276,7 +297,8 @@ class App extends Component {
       }))
       this.generateRandomImg()
     } else {
-      this.setState({isGameOver: true})
+      clearInterval(this.intervalId)
+      this.setState({isGameOver: true, timeElapsedInSeconds: 60})
     }
   }
 
@@ -311,30 +333,48 @@ class App extends Component {
     )
   }
 
-  gameOver = () => (
-    <div className="whole-container">
-      <div className="scorecard-container">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
-          alt="trophy"
-          className="trophy-img"
-        />
-        <h1 className="your-score">YOUR SCORE</h1>
-        <h1 className="score-obtained">30</h1>
-        <button type="button" className="play-again-btn">
+  playAgain = () => {
+    this.setState({
+      activeTab: tabsList[0].tabId,
+      activeImg: imagesList[0].imageUrl,
+      isGameOver: false,
+      score: 0,
+      timeElapsedInSeconds: 0,
+    })
+    this.intervalId = setInterval(this.increaseTimeElapsedInSeconds, 1000)
+  }
+
+  gameOver = () => {
+    const {score} = this.state
+    return (
+      <div className="whole-container">
+        <div className="scorecard-container">
           <img
-            src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
-            alt="reset"
-            className="reset-img"
+            src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
+            alt="trophy"
+            className="trophy-img"
           />
-          <p className="play-again-text">PLAY AGAIN</p>
-        </button>
+          <h1 className="your-score">YOUR SCORE</h1>
+          <h1 className="score-obtained">{score}</h1>
+          <button
+            type="button"
+            className="play-again-btn"
+            onClick={this.playAgain}
+          >
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+              alt="reset"
+              className="reset-img"
+            />
+            <p className="play-again-text">PLAY AGAIN</p>
+          </button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   render() {
-    const {isGameOver, score} = this.state
+    const {isGameOver, score, timeElapsedInSeconds} = this.state
 
     return (
       <div className="bg-container">
@@ -354,7 +394,9 @@ class App extends Component {
                 alt="timer"
                 className="timer-icon"
               />
-              <p className="timer-in-seconds">60 sec</p>
+              <p className="timer-in-seconds">
+                {60 - timeElapsedInSeconds} sec
+              </p>
             </div>
           </div>
         </nav>
